@@ -10,13 +10,13 @@ import {
   Package,
 } from "lucide-vue-next";
 import { ref } from "vue";
-import { useThemeStore } from "../../stores/theme";
-import { useProductStore } from "../../stores/products";
+import { useThemeStore } from "@/stores/theme";
+import { useProductStore } from "@/stores/products";
 import {
   importProductsFromExcel,
   exportProductsToExcel,
-} from "../../services/excelService";
-import NavbarLink from "../ui/button/NavbarLink.vue";
+} from "@/services/excelService";
+import NavbarLink from "@/components/ui/button/BaseNavbarLink.vue";
 
 const themeStore = useThemeStore();
 const productStore = useProductStore();
@@ -58,8 +58,12 @@ async function handleExport() {
 
 <template>
       <header class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
+
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Desktop -->
         <div class="flex items-center justify-between h-16">
+
           <div class="flex items-center gap-3">
             <Package class="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
             <span class="text-xl font-bold">Gerenciador de Produtos</span>
@@ -119,8 +123,10 @@ async function handleExport() {
               <Moon v-else :size="20" class="text-gray-600" />
             </button>
           </div>
+          
         </div>
 
+        <!-- Mobile -->
         <nav class="md:hidden flex items-center gap-1 pb-3">
           <NavbarLink
             to="/"
@@ -135,6 +141,7 @@ async function handleExport() {
             routeName="gallery"
           />
         </nav>
+        
       </div>
     </header>
 </template>

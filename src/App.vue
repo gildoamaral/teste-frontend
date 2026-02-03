@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import Header from './components/layout/Header.vue';
-import LoadingOverlay from './components/layout/LoadingOverlay.vue';
+import Header from './components/features/layout/Header.vue';
+import LoadingOverlay from './components/features/layout/LoadingOverlay.vue';
 </script>
 
 <template>

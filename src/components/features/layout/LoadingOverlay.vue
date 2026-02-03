@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useProductStore } from '../../stores/products';
+import { useProductStore } from '@/stores/products';
 
 
 
