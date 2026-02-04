@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @variant dark (&:where(.dark, .dark *));
+@theme {
+  --color-mainFont: var(--mainFont);
+}
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -9,7 +12,18 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+
+
+
+  --mainFont: hsl(0, 0%, 0%);
 }
+
+.dark {
+  --mainFont: hsl(0, 0%, 100%);
+}
+
+
 
 body {
   margin: 0;
@@ -19,4 +33,5 @@ body {
 
 #app {
   width: 100%;
+  
 }

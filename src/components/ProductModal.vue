@@ -59,14 +59,14 @@ function handleClose() {
         class="fixed inset-0 z-50 flex items-center justify-center p-4"
         @click.self="handleClose"
       >
-        <!-- Backdrop -->
-        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
-
-        <!-- Modal -->
         <div
-          class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+          class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+          @click="handleClose"
+        ></div>
+
+        <div
+          class="relative bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
         >
-          <!-- Header -->
           <div
             class="sticky top-0 bg-white dark:bg-gray-800 px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between z-10"
           >
@@ -81,9 +81,7 @@ function handleClose() {
             </button>
           </div>
 
-          <!-- Form -->
           <form @submit.prevent="handleSubmit" class="p-6 space-y-6">
-            <!-- Image Preview -->
             <div class="flex flex-col items-center gap-4">
               <div
                 class="w-32 h-32 rounded-xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center overflow-hidden"
@@ -100,7 +98,6 @@ function handleClose() {
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <!-- Nome -->
               <div class="md:col-span-2">
                 <label class="block text-sm font-medium mb-2"
                   >Nome do Produto *</label
@@ -114,7 +111,6 @@ function handleClose() {
                 />
               </div>
 
-              <!-- EAN -->
               <div>
                 <label class="block text-sm font-medium mb-2">EAN *</label>
                 <input
@@ -126,7 +122,6 @@ function handleClose() {
                 />
               </div>
 
-              <!-- Status -->
               <div>
                 <label class="block text-sm font-medium mb-2">Status *</label>
                 <select
@@ -140,7 +135,6 @@ function handleClose() {
                 </select>
               </div>
 
-              <!-- Score -->
               <div>
                 <label class="block text-sm font-medium mb-2"
                   >Score (0-1)</label
@@ -156,7 +150,6 @@ function handleClose() {
                 />
               </div>
 
-              <!-- Mirakl Image -->
               <div class="md:col-span-2">
                 <label class="block text-sm font-medium mb-2"
                   >URL Imagem Mirakl</label
@@ -169,7 +162,6 @@ function handleClose() {
                 />
               </div>
 
-              <!-- BB Image URL -->
               <div class="md:col-span-2">
                 <label class="block text-sm font-medium mb-2"
                   >URL Imagem BB *</label
@@ -184,7 +176,6 @@ function handleClose() {
               </div>
             </div>
 
-            <!-- Actions -->
             <div
               class="flex items-center justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-700"
             >
