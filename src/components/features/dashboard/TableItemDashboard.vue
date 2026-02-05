@@ -71,32 +71,6 @@ const emit = defineEmits<{
       </span>
     </td>
 
-    <td class="px-4 py-3 hidden lg:table-cell">
-      <span
-        :class="
-          product.bbImageUrl
-            ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-400'
-            : 'bg-gray-100 dark:bg-gray-900/50 text-gray-500 dark:text-gray-400'
-        "
-        class="px-2 py-1 rounded text-xs font-medium"
-      >
-        {{ product.bbImageUrl ? 'Sim' : 'Não' }}
-      </span>
-    </td>
-
-    <td class="px-4 py-3 hidden lg:table-cell">
-      <span
-        :class="
-          product.miraklImage
-            ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-400'
-            : 'bg-gray-100 dark:bg-gray-900/50 text-gray-500 dark:text-gray-400'
-        "
-        class="px-2 py-1 rounded text-xs font-medium"
-      >
-        {{ product.miraklImage ? 'Sim' : 'Não' }}
-      </span>
-    </td>
-
     <td class="px-4 py-3">
       <div class="flex items-center justify-end gap-2">
         <button

@@ -153,12 +153,7 @@ defineExpose({ resetPagination });
                 </template>
               </div>
             </th>
-            <th class="px-4 py-3 text-left text-sm font-semibold hidden lg:table-cell">
-              BB Image
-            </th>
-            <th class="px-4 py-3 text-left text-sm font-semibold hidden lg:table-cell">
-              Mirakl Image
-            </th>
+
             <th class="px-4 py-3 text-right text-sm font-semibold">
               Ações
             </th>
