@@ -14,17 +14,23 @@ export function useProductMetrics(products: Ref<Product[]>) {
   /**
    * Total de produtos que possuem imagem Mirakl
    */
-  const productsWithMiraklImage = computed(
-    () =>
-      products.value.filter((p) => p.miraklImage && p.miraklImage.trim() !== "")
-        .length,
-  );
+  const productsWithMiraklImage = computed(() => {
+    const productsWithImage = products.value.filter((p) => {
+      return (
+        p.miraklImage &&
+        p.miraklImage.trim() !== "" &&
+        p.miraklImage.trim() !== "N/A"
+      );
+    });
+
+    return productsWithImage.length;
+  });
 
   /**
-   * Total de produtos INDISPONI
+   * Total de produtos INDISPONIVEIS
    */
   const unavailableProducts = computed(
-    () => products.value.filter((p) => p.status === "INDISPONI").length,
+    () => products.value.filter((p) => p.status === "INDISPONIVEL").length,
   );
 
   /**

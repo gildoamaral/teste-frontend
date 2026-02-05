@@ -27,13 +27,13 @@ defineProps<{
       <div class="absolute top-4 right-4">
         <span
           :class="
-            product.status === 'OK'
-              ? 'bg-green-500'
-              : 'bg-red-500'
+            product.status !== 'OK'
+              ? 'bg-red-500 shadow-lg'
+              : ''
           "
-          class="px-3 py-1.5 rounded-full text-sm font-medium text-white shadow-lg"
+          class="px-3 py-1.5 rounded-full text-sm font-medium text-white"
         >
-          {{ product.status === 'OK' ? 'OK' : 'INDISPONÍVEL' }}
+          {{ product.status !== 'OK' ? 'INDISPONÍVEL' : '' }}
         </span>
       </div>
     </div>

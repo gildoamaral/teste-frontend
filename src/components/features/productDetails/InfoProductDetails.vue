@@ -34,7 +34,7 @@ defineProps<{
             "
             class="font-semibold"
           >
-            {{ product.status }}
+            {{ product.status === 'OK' ? 'Disponível' : 'Indisponível' }}
           </span>
         </div>
       </div>
