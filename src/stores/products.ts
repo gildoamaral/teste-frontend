@@ -10,7 +10,6 @@ export const useProductStore = defineStore("products", () => {
    * Adiciona um novo produto
    */
   function addProduct(productData: ProductFormData) {
-    // Gera um novo ID baseado em timestamp
     const newId = productData.id || `PROD-${Date.now()}`;
 
     const newProduct: Product = {

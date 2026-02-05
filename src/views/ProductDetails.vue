@@ -42,7 +42,7 @@ function handleSave(data: ProductFormData) {
 </script>
 
 <template>
-  <div class="max-w-5xl mx-auto space-y-6">
+  <div class=" mx-auto space-y-6">
     <HeaderProductDetails 
       :has-product="!!product"
       @back="goBack"

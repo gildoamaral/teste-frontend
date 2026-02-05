@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import type { Product, ProductFormData } from "../types/Product";
-import { X, Save, ImagePlus } from "lucide-vue-next";
+import { X, Save, ImagePlus, Pencil, ChevronDown, ChevronUp } from "lucide-vue-next";
 
 interface Props {
   product?: Product | null;
@@ -22,6 +22,9 @@ const formData = ref<ProductFormData>({
   miraklImage: "",
   bbImageUrl: "",
 });
+
+const fileInput = ref<HTMLInputElement | null>(null);
+const showUrlInputs = ref(false);
 
 watch(
   () => props.product,
@@ -49,6 +52,29 @@ function handleSubmit() {
 function handleClose() {
   emit("close");
 }
+
+function triggerImageUpload() {
+  fileInput.value?.click();
+}
+
+function handleImageUpload(event: Event) {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
+  
+  if (file && file.type.startsWith('image/')) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target?.result as string;
+      formData.value.miraklImage = result;
+      formData.value.bbImageUrl = "N/A";
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function toggleUrlInputs() {
+  showUrlInputs.value = !showUrlInputs.value;
+}
 </script>
 
 <template>
@@ -65,7 +91,7 @@ function handleClose() {
         ></div>
 
         <div
-          class="relative bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+          class="relative bg-white overflow-y-auto  dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] "
         >
           <div
             class="sticky top-0 bg-white dark:bg-gray-800 px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between z-10"
@@ -82,18 +108,42 @@ function handleClose() {
           </div>
 
           <form @submit.prevent="handleSubmit" class="p-6 space-y-6">
+
+            <!-- image -->
             <div class="flex flex-col items-center gap-4">
-              <div
-                class="w-32 h-32 rounded-xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center overflow-hidden"
-              >
-                <img
-                  v-if="formData.bbImageUrl"
-                  :src="formData.bbImageUrl"
-                  :alt="formData.name"
-                  class="w-full h-full object-cover"
-                  @error="formData.bbImageUrl = ''"
+              <div class="relative group">
+                <div
+                  class="w-32 h-32 rounded-xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center overflow-hidden"
+                >
+                  <img
+                    v-if="formData.miraklImage || formData.bbImageUrl"
+                    :src="formData.miraklImage || formData.bbImageUrl"
+                    :alt="formData.name"
+                    class="w-full h-full object-cover"
+                    @error="formData.miraklImage = ''; formData.bbImageUrl = ''"
+                  />
+                  <ImagePlus v-else :size="40" class="text-gray-400" />
+                </div>
+                
+                <input
+                  ref="fileInput"
+                  type="file"
+                  accept="image/*"
+                  class="hidden"
+                  @change="handleImageUpload"
                 />
-                <ImagePlus v-else :size="40" class="text-gray-400" />
+                
+                <button
+                  type="button"
+                  @click="triggerImageUpload"
+                  class="absolute -top-2 -right-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-lg transition-all duration-300 ease-in-out flex items-center gap-0 hover:gap-2 p-2 hover:pr-4 overflow-hidden cursor-pointer"
+                  title="Adicionar imagem"
+                >
+                  <Pencil :size="16" class="shrink-0" />
+                  <span class="hidden md:inline-block whitespace-nowrap text-xs font-medium max-w-0 group-hover:max-w-25 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out overflow-hidden">
+                    Adicionar
+                  </span>
+                </button>
               </div>
             </div>
 
@@ -115,6 +165,7 @@ function handleClose() {
                 <label class="block text-sm font-medium mb-2">EAN *</label>
                 <input
                   v-model="formData.ean"
+                  maxlength="13"
                   type="text"
                   required
                   class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
@@ -131,7 +182,7 @@ function handleClose() {
                 >
                   <option value="">Selecione...</option>
                   <option value="OK">OK</option>
-                  <option value="INDISPONI">INDISPONI</option>
+                  <option value="INDISPONIVEL">INDISPONIVEL</option>
                 </select>
               </div>
 
@@ -150,30 +201,45 @@ function handleClose() {
                 />
               </div>
 
-              <div class="md:col-span-2">
-                <label class="block text-sm font-medium mb-2"
-                  >URL Imagem Mirakl</label
-                >
-                <input
-                  v-model="formData.miraklImage"
-                  type="url"
-                  class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-                  placeholder="https://media-prod-eu-1.mirakl.net/..."
-                />
-              </div>
+            </div>
 
-              <div class="md:col-span-2">
-                <label class="block text-sm font-medium mb-2"
-                  >URL Imagem BB *</label
-                >
-                <input
-                  v-model="formData.bbImageUrl"
-                  type="url"
-                  required
-                  class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-                  placeholder="https://cdnbigbuy.com/images/..."
-                />
-              </div>
+            <!-- Toggle para URLs de imagem -->
+            <div class="md:col-span-2">
+              <button
+                type="button"
+                @click="toggleUrlInputs"
+                class="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+              >
+                <component :is="showUrlInputs ? ChevronUp : ChevronDown" :size="18" />
+                URLs de Imagem (Avançado)
+              </button>
+              
+              <Transition name="slide">
+                <div v-if="showUrlInputs" class="mt-4 space-y-4">
+                  <div>
+                    <label class="block text-sm font-medium mb-2"
+                      >URL Imagem Mirakl</label
+                    >
+                    <input
+                      v-model="formData.miraklImage"
+                      type="url"
+                      class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
+                      placeholder="https://media-prod-eu-1.mirakl.net/..."
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-medium mb-2"
+                      >URL Imagem BB</label
+                    >
+                    <input
+                      v-model="formData.bbImageUrl"
+                      class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
+                      placeholder="https://cdnbigbuy.com/images/..."
+                    />
+                  </div>
+                </div>
+              </Transition>
             </div>
 
             <div
@@ -201,7 +267,21 @@ function handleClose() {
   </Teleport>
 </template>
 
+
+
 <style scoped>
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.3s ease;
+  max-height: 300px;
+  overflow: hidden;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  max-height: 0;
+  opacity: 0;
+}
 .modal-enter-active,
 .modal-leave-active {
   transition: all 0.3s ease;
