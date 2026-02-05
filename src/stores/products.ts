@@ -71,4 +71,6 @@ export const useProductStore = defineStore("products", () => {
     getProductById,
     setProducts,
   };
+}, {
+  persist: true,
 });
