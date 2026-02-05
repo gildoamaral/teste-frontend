@@ -1,6 +1,18 @@
 import ExcelJS from "exceljs";
 import type { Product } from "../types/Product";
 
+function processImageField(url: string | null | undefined): string {
+  if (!url) return "";
+
+  const safeUrl = String(url).trim();
+
+  if (safeUrl.startsWith("data:image")) {
+    return "[Imagem Local - Upload]";
+  }
+
+  return safeUrl;
+}
+
 /**
  * Importa produtos de um arquivo Excel
  */
@@ -19,12 +31,10 @@ export async function importProductsFromExcel(file: File): Promise<Product[]> {
 
   worksheet.eachRow((row, rowNumber) => {
     if (rowNumber === 1) {
-      // Primeira linha são os cabeçalhos
       row.eachCell((cell) => {
         headers.push(String(cell.value).toLowerCase().trim());
       });
     } else {
-      // Demais linhas são dados
       const rowData: Record<string, any> = {};
       row.eachCell((cell, colNumber) => {
         const header = headers[colNumber - 1] || `col${colNumber}`;
@@ -51,7 +61,6 @@ export async function exportProductsToExcel(
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet("Produtos");
 
-  // Define colunas
   worksheet.columns = [
     { header: "ID", key: "id", width: 15 },
     { header: "EAN", key: "ean", width: 15 },
@@ -62,7 +71,6 @@ export async function exportProductsToExcel(
     { header: "BB_Image_Url", key: "bbImageUrl", width: 60 },
   ];
 
-  // Estiliza cabeçalho
   const headerRow = worksheet.getRow(1);
   headerRow.font = { bold: true, color: { argb: "FFFFFFFF" } };
   headerRow.fill = {
@@ -71,15 +79,15 @@ export async function exportProductsToExcel(
     fgColor: { argb: "FF4F46E5" },
   };
 
-  // Adiciona dados
   products.forEach((product) => {
     worksheet.addRow({
       ...product,
+      miraklImage: processImageField(product.miraklImage),
+      bbImageUrl: processImageField(product.bbImageUrl),
       score: product.score !== null ? product.score : "N/A",
     });
   });
 
-  // Gera arquivo e faz download
   const buffer = await workbook.xlsx.writeBuffer();
   const blob = new Blob([buffer], {
     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -101,7 +109,6 @@ function parseProductFromRow(
   rowData: Record<string, any>,
   rowIndex: number,
 ): Product {
-  // Parse do Score (pode ter vírgula como decimal ou ser N/A)
   let score: number | null = null;
   const scoreValue = rowData["score"];
   if (scoreValue && scoreValue !== "N/A") {

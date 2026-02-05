@@ -118,7 +118,7 @@ function toggleUrlInputs() {
                   class="w-32 h-32 rounded-xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
                   <img v-if="formData.miraklImage || formData.bbImageUrl"
                     :src="formData.miraklImage || formData.bbImageUrl" :alt="formData.name"
-                    class="w-full h-full object-cover" @error="formData.miraklImage = ''; formData.bbImageUrl = ''" />
+                    class="w-full h-full object-cover" @error="formData.miraklImage = ''" />
                   <ImagePlus v-else :size="40" class="text-gray-400" />
                 </div>
 
