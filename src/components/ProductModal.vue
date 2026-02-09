@@ -214,7 +214,7 @@ function closeImageZoom() {
               <button type="submit"
                 class="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white transition-colors font-medium">
                 <Save :size="18" />
-                {{ product ? "Salvar Alterações" : "Criar Produto" }}
+                {{ product ? "Salvar" : "Criar" }}
               </button>
             </div>
           </form>
