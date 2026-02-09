@@ -1,122 +1,126 @@
-# Gerenciador de Produtos
+# 📦 Sistema de Gerenciamento de Produtos
 
-Aplicação web reativa para gerenciamento de produtos com Vue.js + TypeScript.
+Sistema web moderno para gerenciamento e visualização de produtos com suporte a modo claro/escuro, importação de Excel, e interface responsiva.
 
-## 🚀 Tecnologias
+## 🚀 Tecnologias Usadas
 
-- **Vue.js 3** - Framework progressivo
-- **TypeScript** - Tipagem estática
-- **Vite** - Build tool moderna
-- **Pinia** - Gerenciamento de estado
-- **Vue Router** - Navegação SPA
-- **Tailwind CSS** - Estilização utilitária
-- **ExcelJS** - Leitura e escrita de planilhas Excel
-- **Lucide Vue Next** - Ícones
-- **PrimeVue** - Componentes UI
+### Core
 
-## 📦 Instalação
+- **Vue 3** (v3.5.24)
+- **TypeScript** (v5.9.3)
+- **Vite** (v7.2.4)
+
+### Estado e Roteamento
+
+- **Vue Router** (v5.0.2)
+- **Pinia** (v3.0.4)
+- **Pinia Plugin Persistedstate** (v4.7.1)
+
+### UI e Estilização
+
+- **Tailwind CSS** (v4.1.18)
+- **Lucide Vue Next** (v0.563.0)
+
+### Utilitários
+
+- **ExcelJS** (v4.4.0)
+- **PostCSS** e **Autoprefixer**
+
+## ✨ Funcionalidades
+
+- **Visualização de Métricas**: Cards com estatísticas de produtos (BB Img, Mirakl Img, Disponíveis/Indisponíveis)
+- **Tabela Interativa**:
+  - Ordenação por colunas (ID, EAN, Nome, Status, Score)
+  - Paginação (15 itens por página)
+  - Filtro de busca
+  - Edição e exclusão de produtos
+- **Gerenciamento de Produtos**:
+  - CRUD deprodutos via modal
+- **Importação/Exportação Excel**:
+  - Importar e Exportar produtos de planilhas Excel
+- **Pagina de Detalhes**:
+  - Informações Completas sobre produto
+
+### 🎨 Interface
+
+- **Modo Claro/Escuro**: Alternância com persistência
+- **Totalmente Responsivo**: Mobile-first design
+- **Animações Suaves**: Transições e hover effects
+
+### 🔧 Recursos Técnicos
+
+- **Persistência de Dados**: Produtos salvos automaticamente
+
+## 📦 Como Instalar e Iniciar
+
+### Pré-requisitos
+
+- **Node.js** (versão 18 ou superior)
+- **npm**
+- **Git**
+
+### Instalação e Iniciação
 
 ```bash
-# Clonar o repositório
+# 1. Clone o repositório
 git clone <url-do-repositorio>
 
-# Entrar na pasta
+# 2. Entre na pasta do projeto
 cd teste-frontend
 
-# Instalar dependências
+# 3. Instale as dependências
 npm install
 
-# Rodar em desenvolvimento
+# 4. Inicie o servidor de desenvolvimento
 npm run dev
 
-# Build para produção
-npm run build
+# 5. Acesse no navegador
+http://localhost:5173
 ```
 
-## 📖 Funcionalidades
-
-### Dashboard
-
-- **Cards de métricas em tempo real:**
-  - Total de produtos com imagem
-  - Total de produtos indisponíveis
-  - Total de produtos OK (disponíveis e completos)
-  - Score médio dos produtos
-
-- **Tabela de produtos:**
-  - Visualização dos dados principais
-  - Campo de busca textual
-  - Filtro por categoria
-  - Filtro por disponibilidade
-  - Ordenação por colunas
-  - CRUD completo (Criar, Editar, Excluir)
-
-### Galeria
-
-- Grid de cards com imagens em destaque
-- Filtros de busca e categoria
-- Clique para editar produto
-- Design responsivo
-
-### Recursos Extras
-
-- 🌙 **Dark/Light Mode** - Alternância de tema com persistência
-- 📤 **Importar Excel** - Carrega planilha de produtos
-- 📥 **Exportar Excel** - Baixa dados atualizados no mesmo formato
-- ⚡ **Reatividade total** - Alterações refletem instantaneamente nas métricas
-- 📱 **Responsivo** - Funciona em desktop, tablet e mobile
-
-## 🎯 Como usar
-
-1. **Importar planilha:** Clique no botão "Importar" no cabeçalho e selecione seu arquivo Excel (.xlsx)
-
-2. **Gerenciar produtos:**
-   - Use os filtros para encontrar produtos
-   - Clique em "Adicionar" para criar novo produto
-   - Clique no ícone de lápis para editar
-   - Clique no ícone de lixeira para excluir
-
-3. **Exportar dados:** Clique no botão "Exportar" para baixar a planilha atualizada
-
-4. **Alternar tema:** Clique no ícone de sol/lua para alternar entre modo claro e escuro
-
-## 📋 Estrutura da Planilha
-
-A planilha deve conter as seguintes colunas (aceita variações em português/inglês):
-
-| Coluna     | Variações aceitas                  |
-| ---------- | ---------------------------------- |
-| Nome       | nome, name, produto                |
-| Categoria  | categoria, category                |
-| Preço      | preço, preco, price                |
-| Estoque    | estoque, stock, quantidade         |
-| Avaliação  | avaliação, avaliacao, rating, nota |
-| Imagem     | imagem, image, imageurl, url       |
-| Disponível | disponível, disponivel, available  |
-| Descrição  | descrição, descricao, description  |
-
-## 🏗️ Estrutura do Projeto
+## 📁 Estrutura de Pastas
 
 ```
+
 src/
-├── components/        # Componentes reutilizáveis
-│   ├── MetricCard.vue
-│   └── ProductModal.vue
-├── router/           # Configuração de rotas
-│   └── index.ts
-├── stores/           # Stores Pinia
-│   ├── products.ts   # Estado dos produtos
-│   └── theme.ts      # Estado do tema
-├── types/            # Tipos TypeScript
-│   └── Product.ts
-├── views/            # Páginas
-│   ├── Dashboard.vue
-│   └── Gallery.vue
-├── App.vue           # Componente raiz
-├── main.ts           # Entry point
-└── style.css         # Estilos globais
+   ├── assets/               # Imagens, fontes e outros assets
+   ├── components/           # Componentes Vue
+   │   ├── features/         # Componentes específicos de features
+   │   │   ├── dashboard/    # Componentes do Dashboard
+   │   │   ├── gallery/      # Componentes da Galeria
+   │   │   ├── layout/       # Componentes de layout
+   │   │   └── productDetails/ # Componentes de detalhes
+   │   └── ui/               # Componentes UI reutilizáveis
+   │
+   ├── composables/          # Lógica reutilizável
+   │
+   ├── router/               # Configuração de rotas
+   │
+   ├── services/             # Serviços externos
+   │
+   ├── stores/               # Stores Pinia
+   │
+   ├── types/                # Definições TypeScript
+   │
+   └── views/                # Páginas/Views
+
 ```
 
-## 👨‍💻 Autor
+## 💬 Comentários
 
-Desenvolvido para o desafio técnico de Frontend.
+- **Escolha da Stack**: Escolhido o vue3 como forma de me desafiar, uma vez que venho primariamente do React/Next. Foi utilizada uma arquitetura minimalista com componentes que imitam o shadcn (construídos com Tailwind CSS a partir do código).
+
+- **Resultado**: Acredito que foi entregue um aplicativo funcional, responsivo, que atende aos requisitos levantados e adiciona melhoras significativas à proposta.
+
+## 📸 Screenshots
+
+<div align="center">
+  <img src="public/screenshots/teste_desktop.png" alt="Mobile View" width="400" height="200" />
+  <img src="public/screenshots/teste_mobile.jpg" alt="Desktop View" width="200" height="400"/>
+</div>
+
+---
+
+**Desenvolvido com Vue 3 + TypeScript + Tailwind CSS**
+
+

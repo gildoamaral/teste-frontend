@@ -2,6 +2,7 @@
 import { ref, watch } from "vue";
 import type { Product, ProductFormData } from "../types/Product";
 import { X, Save, ImagePlus, Pencil, ChevronDown, ChevronUp } from "lucide-vue-next";
+import ImageZoomModal from "./ImageZoomModal.vue";
 
 interface Props {
   product?: Product | null;
@@ -25,6 +26,8 @@ const formData = ref<ProductFormData>({
 
 const fileInput = ref<HTMLInputElement | null>(null);
 const showUrlInputs = ref(false);
+const isImageZoomOpen = ref(false);
+const zoomImageUrl = ref("");
 
 watch(
   () => props.product,
@@ -75,6 +78,18 @@ function handleImageUpload(event: Event) {
 function toggleUrlInputs() {
   showUrlInputs.value = !showUrlInputs.value;
 }
+
+function openImageZoom() {
+  const imageUrl = formData.value.miraklImage || formData.value.bbImageUrl;
+  if (imageUrl) {
+    zoomImageUrl.value = imageUrl;
+    isImageZoomOpen.value = true;
+  }
+}
+
+function closeImageZoom() {
+  isImageZoomOpen.value = false;
+}
 </script>
 
 <template>
@@ -115,10 +130,13 @@ function toggleUrlInputs() {
 
               <div class="group">
                 <div
-                  class="w-32 h-32 rounded-xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
+                  @click="openImageZoom"
+                  class="w-32 h-32 rounded-xl bg-gray-100 hover:scale-120 dark:bg-gray-700 flex items-center justify-center overflow-hidden"
+                  :class="(formData.miraklImage || formData.bbImageUrl) ? 'cursor-pointer transition-all' : ''"
+                >
                   <img v-if="formData.miraklImage || formData.bbImageUrl"
                     :src="formData.miraklImage || formData.bbImageUrl" :alt="formData.name"
-                    class="w-full h-full object-cover" @error="formData.miraklImage = ''" />
+                    class="w-full h-full object-cover " @error="formData.miraklImage = ''" />
                   <ImagePlus v-else :size="40" class="text-gray-400" />
                 </div>
 
@@ -204,6 +222,13 @@ function toggleUrlInputs() {
       </div>
     </Transition>
   </Teleport>
+
+  <ImageZoomModal
+    :is-open="isImageZoomOpen"
+    :image-url="zoomImageUrl"
+    :alt="formData.name"
+    @close="closeImageZoom"
+  />
 </template>
 
 

@@ -14,7 +14,7 @@ const emit = defineEmits<{
 <template>
   <div
     @click="emit('click', product)"
-    class="bg-white dark:bg-gray-800 rounded-xs overflow-hidden shadow-sm transition-all cursor-pointer group hover:transform-gpu hover:scale-[1.02]"
+    class="bg-white dark:bg-gray-800 rounded-sm overflow-hidden shadow-sm transition-all cursor-pointer group hover:transform-gpu hover:scale-[1.02]"
   >
 
   <!-- Image -->
