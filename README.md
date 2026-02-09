@@ -63,7 +63,7 @@ Sistema web moderno para gerenciamento e visualização de produtos com suporte 
 
 ```bash
 # 1. Clone o repositório
-git clone <url-do-repositorio>
+git clone https://github.com/gildoamaral/teste-frontend.git
 
 # 2. Entre na pasta do projeto
 cd teste-frontend
