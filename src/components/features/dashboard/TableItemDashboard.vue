@@ -17,7 +17,7 @@ const emit = defineEmits<{
 
 <template>
   <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-    <td class="px-4 py-3 font-mono text-sm">
+    <td class="px-4 py-3 font-mono text-sm hidden md:table-cell">
       {{ product.id }}
     </td>
 
@@ -25,7 +25,7 @@ const emit = defineEmits<{
       {{ product.ean }}
     </td>
 
-    <td class="px-4 py-3">
+    <td class="px-4 py-">
       <div class="flex items-center gap-3">
         <div
           class="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-700 overflow-hidden shrink-0"
@@ -43,7 +43,10 @@ const emit = defineEmits<{
             <Image :size="20" class="text-gray-400" />
           </div>
         </div>
-        <p class="font-medium">{{ product.name }}</p>
+        <p class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+          <span class="sm:hidden">{{ product.name.length > 30 ? product.name.slice(0, 30) + '...' : product.name }}</span>
+          <span class="hidden sm:inline">{{ product.name }}</span>
+        </p>
       </div>
     </td>
 
@@ -52,13 +55,13 @@ const emit = defineEmits<{
         :class="
           product.status === 'OK'
             ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-400'
-            : product.status === 'INDISPONI'
+            : product.status === 'INDISPONIVEL'
               ? 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-400'
               : 'bg-gray-100 dark:bg-gray-900/50 text-gray-700 dark:text-gray-400'
         "
         class="px-2 py-1 rounded-full text-xs font-medium"
       >
-        {{ product.status }}
+        {{ product.status === 'OK' ? 'DISPONIVEL' : product.status}}
       </span>
     </td>
 

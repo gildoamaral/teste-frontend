@@ -95,7 +95,7 @@ defineExpose({ resetPagination });
           <tr>
             <th
               @click="toggleSort('id')"
-              class="px-4 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              class="px-4 py-3 text-left text-sm font-semibold cursor-pointer hidden md:table-cell hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
               <div class="flex items-center gap-2">
                 ID
@@ -119,7 +119,7 @@ defineExpose({ resetPagination });
             </th>
             <th
               @click="toggleSort('name')"
-              class="px-4 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              class="px-4 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors w-[40%]"
             >
               <div class="flex items-center gap-2">
                 Nome
